@@ -30,10 +30,9 @@ define('BDUSS','***');
 define('BDUSS','');
 
 //这是贴吧名，必须要有权限！
-//中文吧名必须先以GBK/GB2312编码进行urlencode！
 //Eg.:
-# define('KW','bug');
-define('KW','');
+// $kw='bug';
+$kw='';
 
 //是否隐藏操作人
 #不隐藏：  define('HIDE',false);
@@ -47,6 +46,8 @@ define('HIDE',false);
 define('OPENPIC',true);
 
 ///不要修改以下部分了
+//中文吧名需要以GBK/GB2312编码进行urlencode才能传给贴吧url
+define('KW',urlencode(iconv('UTF-8', 'GBK', $kw)));
 ///STATIC PART
 define('MAIN','http://tieba.baidu.com/bawu2/platform/index?word=');
 define('POST','http://tieba.baidu.com/bawu2/platform/listPostLog?word=');
