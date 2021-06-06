@@ -14,9 +14,9 @@ if(!@$_POST['hours']||!@$_POST['adminpwd'])
 	<body>
 		<div style="margin-top: 30px; text-align:center;">
 			<form method="post">
-				<h1>VTOPºóÌ¨ÃÜÂëÉú³ÉÆ÷</h1>
-				<p>ÇëÊäÈëÃÜÂëÓÐÐ§Ð¡Ê±Êý <input type="number" max="1000" name="hours" value="1"></p>
-				<p>¹ÜÀíÃÜÂë <input name="adminpwd" placeholder="ÃÜÂëÔÚconfig.phpÖÐÉèÖÃ"/></p>
+				<h1>VTOPåŽå°å¯†ç ç”Ÿæˆå™¨</h1>
+				<p>è¯·è¾“å…¥å¯†ç æœ‰æ•ˆå°æ—¶æ•° <input type="number" max="1000" name="hours" value="1"></p>
+				<p>ç®¡ç†å¯†ç  <input name="adminpwd" placeholder="å¯†ç åœ¨config.phpä¸­è®¾ç½®"/></p>
 				<p><input type="submit"/></p>
 			</form>
 		</div>
@@ -30,7 +30,7 @@ elseif($_POST['adminpwd']!=ADMINPWD)
 	<title>VTOP ADMIN</title>
 	<body>
 		<div style="margin-top: 30px; text-align:center;">
-			<p><strong>¹ÜÀíÃÜÂë´íÎó</strong></p>
+			<p><strong>ç®¡ç†å¯†ç é”™è¯¯</strong></p>
 		</div>
 	</body>
 	<?php
@@ -39,13 +39,13 @@ else
 {
 	$h=$_POST['hours'];
 	$s=gen_pwd($h);
-	$t=date('YÄêmÔÂdÈÕHÊ±',time()+$h*3600);
+	$t=date('Yå¹´mæœˆdæ—¥Hæ—¶',time()+$h*3600);
 	echo <<<EOF
 	<title>VTOP ADMIN</title>
 	<body>
 		<div style="margin-top: 30px; text-align:center;">
-			<p>ÃÜÂëÒÑÉú³É£º<strong>$s</strong></p>
-			<p>ÓÐÐ§ÆÚÖÁ£º$t</p>
+			<p>å¯†ç å·²ç”Ÿæˆï¼š<strong>$s</strong></p>
+			<p>æœ‰æ•ˆæœŸè‡³ï¼š$t</p>
 		</div>
 	</body>
 EOF;

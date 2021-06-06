@@ -6,7 +6,7 @@
  * Website http://vicz.cn/
  */
 
-//0.12ĞÂcore
+//0.12æ–°core
  
 header("Content-type:text/html;charset=GBK");
  
@@ -27,7 +27,7 @@ function cget($url,$cookie)
 
 function swh($res)
 {
-	if($res=='err') return 'COOKIEÊ§Ğ§»òÎŞÈ¨ÏŞ';
+	if($res=='err') return 'COOKIEå¤±æ•ˆæˆ–æ— æƒé™';
 
 	$res=preg_replace_callback('/<head>/', function ($matches) { 
 		return '<style>
@@ -40,27 +40,27 @@ function swh($res)
 		return '<div class="user_info">
 			<a href="./">
 				<h2>VTOP 0.14</h2>
-				<p>Ìù°É¹«¿ªºóÌ¨<br />ËùÔÚ°É£º' . urldecode(KW) . '°É</p>
+				<p>è´´å§å…¬å¼€åå°<br />æ‰€åœ¨å§ï¼š' . urldecode(KW) . 'å§</p>
 			</a>
 			<p>
 				<a href="http://vicz.cn">Powered By VICZONE-&gt;BFE</a><br />
-				2015£ºÔ­×÷Õß<a href="https://tieba.baidu.com/home/main/?un=%E8%93%9D%E8%89%B2%E7%81%AB%E7%84%B0E">Ìù°É@À¶É«»ğÑæE</a><br />
-				2021£º<a href="http://sst.st">SS\'S TRACE</a><br />
-				<a href="https://github.com/n0099/vtop">±¾ĞŞ¸Ä°æÔ´Âë @ GitHub</a><br />
-				<a href="https://n0099.net">n0099 ËÄÒ¶ÖØ¹¤</a>
+				2015ï¼šåŸä½œè€…<a href="https://tieba.baidu.com/home/main/?un=%E8%93%9D%E8%89%B2%E7%81%AB%E7%84%B0E">è´´å§@è“è‰²ç«ç„°E</a><br />
+				2021ï¼š<a href="http://sst.st">SS\'S TRACE</a><br />
+				<a href="https://github.com/n0099/vtop">æœ¬ä¿®æ”¹ç‰ˆæºç  @ GitHub</a><br />
+				<a href="https://n0099.net">n0099 å››å¶é‡å·¥</a>
 			</p>
 		</div><nav';
 	}, $res);
 
-	// ¸ù¾İÑ§ÊõëàÒªÇóÒş²ØÌû×ÓÄÚÈİ by n0099
+	// æ ¹æ®å­¦æœ¯è±šè¦æ±‚éšè—å¸–å­å†…å®¹ by n0099
 	if (HIDE_DELETED_POST_CONTENT) {
 		$res=preg_replace_callback('/<div class="post_text">(.*?)<\/div>/', function ($matches) {
-			return '<div class="post_text">±§Ç¸£¬¸ù¾İ<a href="http://tieba.baidu.com/p/4825438125" target="_blank">Ïà¹Ø°É¹æºÍÕş²ß</a>£¬Ìû×ÓÄÚÈİÔİ²»¹«¿ª</div>';
+			return '<div class="post_text">æŠ±æ­‰ï¼Œæ ¹æ®<a href="http://tieba.baidu.com/p/4825438125" target="_blank">ç›¸å…³å§è§„å’Œæ”¿ç­–</a>ï¼Œå¸–å­å†…å®¹æš‚ä¸å…¬å¼€</div>';
 		}, $res);
 	}
 	
 	$res=str_replace('/bawu2/platform/','./',$res);
-	// https×ÊÔ´url×ÔÊÊÓ¦ by n0099
+	// httpsèµ„æºurlè‡ªé€‚åº” by n0099
 	$res=str_replace('http://tb1.bdstatic.com','//tb1.bdstatic.com',$res);
 	$res=str_replace('http://tb2.bdstatic.com','//tb2.bdstatic.com',$res);
 	$res=str_replace('//tb1.bdstatic.com','https://tb1.bdstatic.com',$res);
@@ -70,13 +70,13 @@ function swh($res)
 	$res=str_replace('<img src="/','<img src="https://tieba.baidu.com/',$res);
 	$res=str_replace('http://passport.baidu.com','https://passport.baidu.com',$res);
 
-	// ½«É¾ÌûÈÕÖ¾Ò³ÖĞÎ»ÓÚ article.post_wrapper > div.post_content > div.post_media > ul.pic_list > li > a > img ÏÂµÄÌû×ÓÕıÎÄÍ¼Æ¬µÄlazyload¼ÓÔØÍ¼Æ¬urlÌáÈ¡³öÀ´ by n0099
+	// å°†åˆ å¸–æ—¥å¿—é¡µä¸­ä½äº article.post_wrapper > div.post_content > div.post_media > ul.pic_list > li > a > img ä¸‹çš„å¸–å­æ­£æ–‡å›¾ç‰‡çš„lazyloadåŠ è½½å›¾ç‰‡urlæå–å‡ºæ¥ by n0099
 	$res=preg_replace_callback('/<li><a target="_blank" href="(.*?)"><img(.*?)src=".*?".*?original=".*?"/',function ($matches){return "<li><a target=\"_blank\" href=\"$matches[1]\"><img$matches[2]src=\"$matches[1]\"";},$res);
 
-	if (OPENPIC) { // Ñ¡ÔñĞÔ·´´úÓÃ»§Í·ÏñportraitÍ¼Æ¬Óòtb.himg.baidu.com
+	if (OPENPIC) { // é€‰æ‹©æ€§åä»£ç”¨æˆ·å¤´åƒportraitå›¾ç‰‡åŸŸtb.himg.baidu.com
 		$res=preg_replace_callback('/<img(.*?)src=(\'|")(http(s|):\/\/(tb\.himg\.baidu\.com)\/.*?)(\'|")/',function ($matches){return "<img$matches[1]src=\"picgetter.php?url=$matches[3]\"";},$res);
 	}
-	// tb.himg.baidu.comÖ®ÍâµÄÌù°ÉÍ¼Æ¬Óò¶¼¿ÉÒÔÎŞreferer·ÃÎÊËùÒÔ²»ĞèÒª·´´ú by n0099
+	// tb.himg.baidu.comä¹‹å¤–çš„è´´å§å›¾ç‰‡åŸŸéƒ½å¯ä»¥æ— refererè®¿é—®æ‰€ä»¥ä¸éœ€è¦åä»£ by n0099
 	$res=preg_replace_callback('/<img/',function ($matches){return '<img referrerpolicy="no-referrer"';},$res);
 
 	return $res;
