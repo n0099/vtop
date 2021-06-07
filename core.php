@@ -7,7 +7,7 @@
  */
 
 //0.12新core
- 
+
 require 'config.php';
 
 function cget($url,$cookie)
@@ -69,6 +69,11 @@ function swh($res)
 		);
 	}
 
+	if (HIDE) {
+		$res=preg_replace('/<a href="#" class="ui_text_normal">[^<]+<\/a>/', '<span class="ui_text_normal"><strong>Hidden</strong></span>', $res);
+	}
+
+	// 是否省略左侧面板链接url末尾的.php
 	$res=preg_replace_callback(
 		'/<a href="\/bawu2\/platform\/(.*?)\?word=.*?"/',
 		function ($matches){return "<a href=\"/bawu2/platform/$matches[1]" . (URL_REWRITE_ENABLED ? '"' : '.php"');},
@@ -105,13 +110,4 @@ function swh($res)
 
 	header("Content-Type: text/html; charset=GBK");
 	return iconv('UTF-8', 'GBK', $res);
-}
-
-
-
-function hide($res)
-{
-	if(!HIDE) return $res;
-	$res=preg_replace('/<a href="#" class="ui_text_normal">[^<]+<\/a>/', '<span class="ui_text_normal"><strong>Hidden</strong></span>', $res);
-	return $res;
 }

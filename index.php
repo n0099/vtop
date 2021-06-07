@@ -13,5 +13,3 @@ $res=cget(MAIN.KW,COOKIE);
 $res=swh($res);
 
 echo $res;
-
-?>

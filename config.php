@@ -1,8 +1,8 @@
 <?php
 // 是否省略左侧面板链接url末尾的.php，需要已配置正确的urlrewrite
 define('URL_REWRITE_ENABLED', false);
-// 是否隐藏已删除帖子的内容预览，具体修改位于core.php:67
-define('HIDE_DELETED_POST_CONTENT', true);
+// 是否隐藏已删除帖子的内容预览，具体修改位于core.php:71
+define('HIDE_DELETED_POST_CONTENT', false);
 
 /**
  * Author VICZONE
