@@ -69,6 +69,12 @@ function swh($res)
 		);
 	}
 
+	$res=preg_replace_callback(
+		'/<a href="\/bawu2\/platform\/(.*?)\?word=.*?"/',
+		function ($matches){return "<a href=\"/bawu2/platform/$matches[1]" . (URL_REWRITE_ENABLED ? '"' : '.php"');},
+		$res
+	);
+
 	$res=str_replace('/bawu2/platform/','./',$res);
 	// https资源url自适应
 	$res=str_replace('http://tb1.bdstatic.com','//tb1.bdstatic.com',$res);

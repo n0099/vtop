@@ -8,7 +8,7 @@
  
 require 'core.php';
 
-header("Content-type: image/png"); 
+header("Content-Type: image/jpeg"); 
 
 $url=$_GET["url"];
 
