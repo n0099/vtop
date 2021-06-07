@@ -55,7 +55,7 @@ function swh($res)
 		'<div class="user_info">
 			<a href="./">
 				<h2>VTOP 0.14</h2>
-				<p>贴吧公开后台<br />所在吧：' . KW . '吧</p>
+				<p>贴吧公开后台<br />所在吧：' . KW_RAW . '吧</p>
 			</a>
 			<p>
 				<a href="http://vicz.cn">Powered By VICZONE-&gt;BFE</a><br />

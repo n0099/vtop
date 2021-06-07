@@ -10,6 +10,8 @@ define('HIDE_DELETED_POST_CONTENT', false);
  * Website http://vicz.cn/
  */
 
+// 是否隐藏操作人，作用于删帖封禁日志、黑名单列表、吧务上下任日志、删帖/封禁申诉页
+define('HIDE', false);
 
 //输入cookie，如果不会，VICZONE·交流有写（http://vicz.cn）
 
@@ -36,17 +38,6 @@ define('BDUSS','');
 // define('KW_RAW','bug');
 define('KW_RAW','');
 
-//是否隐藏操作人
-#不隐藏：  define('HIDE',false);
-#隐藏：  define('HIDE',true);
-define('HIDE',false);
-
-
-//可以开启防止百度盗链的图片，但是会增加服务器带宽负担
-//实际上就是服务器要下载图片了……
-//如果不愿意开启请把true改成false
-define('OPENPIC',true);
-
 ///不要修改以下部分了
 //中文吧名需要以GBK/GB2312编码进行urlencode才能传给贴吧url
 define('KW_GBK', iconv('UTF-8', 'GBK', KW_RAW));
@@ -62,8 +53,8 @@ define('BAWU_DUTY','http://tieba.baidu.com/bawu2/platform/listBawuDuty?word=');
 define('BLACKLIST','http://tieba.baidu.com/bawu2/platform/listBlackUser?word=');
 define('DATA_EXCEL','http://tieba.baidu.com/bawu2/platform/dataExcel?word=');
 define('USER_DATA_EXCEL','http://tieba.baidu.com/bawu2/platform/userDataExcel?word=');
-define('APPEAL', 'http://tieba.baidu.com/bawu2/appeal/index?type=grid&kw=');
-define('POST_APPEAL', 'http://tieba.baidu.com/bawu2/postappeal/index?type=grid&kw=');
+define('APPEAL','http://tieba.baidu.com/bawu2/appeal/index?type=grid&kw=');
+define('POST_APPEAL','http://tieba.baidu.com/bawu2/postappeal/index?type=grid&kw=');
 
 define('VERSION','0.14');
 
