@@ -62,6 +62,8 @@ define('BAWU_DUTY','http://tieba.baidu.com/bawu2/platform/listBawuDuty?word=');
 define('BLACKLIST','http://tieba.baidu.com/bawu2/platform/listBlackUser?word=');
 define('DATA_EXCEL','http://tieba.baidu.com/bawu2/platform/dataExcel?word=');
 define('USER_DATA_EXCEL','http://tieba.baidu.com/bawu2/platform/userDataExcel?word=');
+define('APPEAL', 'http://tieba.baidu.com/bawu2/appeal/index?type=grid&kw=');
+define('POST_APPEAL', 'http://tieba.baidu.com/bawu2/postappeal/index?type=grid&kw=');
 
 define('VERSION','0.14');
 
@@ -70,5 +72,3 @@ define('SK',md5(BDUSS.'VTOP!!!'));
 $urls=array(MAIN,POST,USER,DATA,BAWU);
 
 define('COOKIE','BDUSS='.BDUSS.';');
-
-?>
