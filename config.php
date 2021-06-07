@@ -58,7 +58,12 @@ define('USER','http://tieba.baidu.com/bawu2/platform/listUserLog?word=');
 define('DATA','http://tieba.baidu.com/bawu2/platform/data?word=');
 define('BAWU','http://tieba.baidu.com/bawu2/platform/listBawuLog?word=');
 
-define('VERSION','0.12');
+define('BAWU_DUTY','http://tieba.baidu.com/bawu2/platform/listBawuDuty?word=');
+define('BLACKLIST','http://tieba.baidu.com/bawu2/platform/listBlackUser?word=');
+define('DATA_EXCEL','http://tieba.baidu.com/bawu2/platform/dataExcel?word=');
+define('USER_DATA_EXCEL','http://tieba.baidu.com/bawu2/platform/userDataExcel?word=');
+
+define('VERSION','0.14');
 
 define('SK',md5(BDUSS.'VTOP!!!'));
 
