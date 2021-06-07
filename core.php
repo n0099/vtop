@@ -8,8 +8,6 @@
 
 //0.12新core
  
-header("Content-type:text/html;charset=GBK");
- 
 require 'config.php';
 
 function cget($url,$cookie)
@@ -27,7 +25,9 @@ function cget($url,$cookie)
 
 function swh($res)
 {
-	if($res=='err') return 'COOKIE失效或无权限';
+	// 防止当bduss账号担任多个吧吧务时可通过手写url querystring访问指定贴吧以外贴吧的后台
+	if($res==='err' || !empty($_GET['word']) && ($_GET['word'] === KW_RAW || $_GET['word'] === KW_GBK)) return 'COOKIE失效或无权限';
+	$res = iconv('GBK', 'UTF-8', $res);
 
 	$res=preg_replace_callback('/<head>/', function ($matches) { 
 		return '<style>
@@ -40,7 +40,7 @@ function swh($res)
 		return '<div class="user_info">
 			<a href="./">
 				<h2>VTOP 0.14</h2>
-				<p>贴吧公开后台<br />所在吧：' . urldecode(KW) . '吧</p>
+				<p>贴吧公开后台<br />所在吧：' . KW . '吧</p>
 			</a>
 			<p>
 				<a href="http://vicz.cn">Powered By VICZONE-&gt;BFE</a><br />
@@ -79,7 +79,8 @@ function swh($res)
 	// tb.himg.baidu.com之外的贴吧图片域都可以无referer访问所以不需要反代 by n0099
 	$res=preg_replace_callback('/<img/',function ($matches){return '<img referrerpolicy="no-referrer"';},$res);
 
-	return $res;
+	header("Content-Type: text/html; charset=GBK");
+	return iconv('UTF-8', 'GBK', $res);
 }
 
 
