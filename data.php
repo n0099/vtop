@@ -14,5 +14,4 @@ $res=swh($res);
 
 echo $res;
 
-
 ?>
