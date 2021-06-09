@@ -30,6 +30,21 @@ function cget($url,$cookie)
 	return $get_url;
 }
 
+function cgetThenEcho($endpoint) {
+	$res=cget($endpoint.KW,COOKIE);
+	$res=swh($res);
+	echo $res;
+}
+
+function cgetWithCurrentQueryStringThenEcho($endpoint) {
+	if (HIDE && $_GET['stype'] === 'op_uname') {
+		unset($_GET['svalue']);
+	}
+	$res=cget($endpoint.KW.'&'.http_build_query($_GET),COOKIE);
+	$res=swh($res);
+	echo $res;
+}
+
 function swh($res)
 {
 	// 防止当bduss账号担任多个吧吧务时可通过手写url querystring访问指定贴吧以外贴吧的后台
