@@ -16,6 +16,10 @@ self.addEventListener('fetch', event => {
     event.respondWith((() => {
         const req = event.request;
         const url = new URL(req.url);
+        if (/^\/(sysmsg|im|f)\//.test(url.pathname) || url.hostname === 'nsclick.baidu.com') {
+            // silence requests from tracking service on nsclick.baidu.com and some tieba resource which using root relative path
+            return new Response('', { status: 502 });
+        }
         const requestingApi = allowedApiEndpoints.filter(i => url.pathname.startsWith('/bawu2/' + i))[0] || null;
         if (requestingApi !== null) {
             return fetch(`./appealApi.php?url=${requestingApi}&${url.search.substr(1)}`);
