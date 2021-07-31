@@ -10,50 +10,56 @@
 
 require 'config.php';
 
-function cget($url,$cookie)
+function cget($url, $cookie)
 {
-	$ch=curl_init($url);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-		'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-		'Accept-Language: zh-CN,zh;q=0.9',
-		'Cache-Control: no-cache',
-		'Connection: keep-alive',
-		'Referer: https://tieba.baidu.com/f?ie=utf-8&kw=' . urlencode(KW_RAW),
-		'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
-	));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-	curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-	$get_url = curl_exec($ch);
-	curl_close($ch);
-	if(!$get_url) return 'err';
-	return $get_url;
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept-Language: zh-CN,zh;q=0.9',
+        'Cache-Control: no-cache',
+        'Connection: keep-alive',
+        'Referer: https://tieba.baidu.com/f?ie=utf-8&kw=' . urlencode(KW_RAW),
+        'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
+    ));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    $get_url = curl_exec($ch);
+    curl_close($ch);
+    if (!$get_url) {
+        return 'err';
+    }
+    return $get_url;
 }
 
-function cgetThenEcho($endpoint) {
-	$res=cget($endpoint.KW,COOKIE);
-	$res=swh($res);
-	echo $res;
+function cgetThenEcho($endpoint)
+{
+    $res = cget($endpoint . KW, COOKIE);
+    $res = swh($res);
+    echo $res;
 }
 
-function cgetWithCurrentQueryStringThenEcho($endpoint) {
-	if (HIDE && $_GET['stype'] === 'op_uname') {
-		unset($_GET['svalue']);
-	}
-	$res=cget($endpoint.KW.'&'.http_build_query($_GET),COOKIE);
-	$res=swh($res);
-	echo $res;
+function cgetWithCurrentQueryStringThenEcho($endpoint)
+{
+    if (HIDE && $_GET['stype'] === 'op_uname') {
+        unset($_GET['svalue']);
+    }
+    $res = cget($endpoint . KW . '&' . http_build_query($_GET), COOKIE);
+    $res = swh($res);
+    echo $res;
 }
 
 function swh($res)
 {
-	// 防止当bduss账号担任多个吧吧务时可通过手写url querystring访问指定贴吧以外贴吧的后台
-	if($res==='err' || !empty($_GET['word']) && ($_GET['word'] !== KW_RAW || $_GET['word'] !== KW_GBK)) return 'COOKIE失效或无权限';
-	$res = iconv('GBK', 'UTF-8', $res);
+    // 防止当bduss账号担任多个吧吧务时可通过手写url querystring访问指定贴吧以外贴吧的后台
+    if ($res === 'err' || !empty($_GET['word']) && ($_GET['word'] !== KW_RAW || $_GET['word'] !== KW_GBK)) {
+        return 'COOKIE失效或无权限';
+    }
+    $res = iconv('GBK', 'UTF-8', $res);
 
-	$res=str_replace(
-		'<head>',
-		'<head>
+    $res = str_replace(
+        '<head>',
+        '<head>
 			<style>
 				.user_info * { color: white; }
 				.pic_list li { height: auto !important; }
@@ -64,10 +70,11 @@ function swh($res)
 					navigator.serviceWorker.register("./appealSW.js", { scope: "./" });
 				}
 			</script>',
-		$res
-	);
-	$res=preg_replace('/<div class="user_info">(.*)<\/div><nav/',
-		'<div class="user_info">
+        $res
+    );
+    $res = preg_replace(
+        '/<div class="user_info">(.*)<\/div><nav/',
+        '<div class="user_info">
 			<a href="./">
 				<h2>VTOP 0.14</h2>
 				<p>贴吧公开后台<br />所在吧：' . KW_RAW . '吧</p>
@@ -79,62 +86,70 @@ function swh($res)
 				<a href="https://github.com/n0099/vtop">本修改版源码 @ GitHub</a><br />
 				<a href="https://n0099.net">n0099 四叶重工</a>
 			</p>
-		</div><nav', $res);
+		</div><nav',
+        $res
+    );
 
-	// 隐藏删帖日志页的帖子内容
-	if (HIDE_DELETED_POST_CONTENT) {
-		$res=preg_replace('/<div class="post_text">(.*?)<\/div>/', '<div class="post_text">抱歉，根据相关吧规和政策，帖子内容暂不公开</div>', $res);
-		$res=preg_replace('/<div class="post_media">(.*?)<\/div>/', '<div class="post_media"></div>', $res);
-	}
+    // 隐藏删帖日志页的帖子内容
+    if (HIDE_DELETED_POST_CONTENT) {
+        $res = preg_replace('/<div class="post_text">(.*?)<\/div>/', '<div class="post_text">抱歉，根据相关吧规和政策，帖子内容暂不公开</div>', $res);
+        $res = preg_replace('/<div class="post_media">(.*?)<\/div>/', '<div class="post_media"></div>', $res);
+    }
 
-	if (HIDE) {
-		$res=preg_replace('/<a href="#" class="ui_text_normal">[^<]+<\/a>/', '<span class="ui_text_normal"><strong>Hidden</strong></span>', $res);
-	}
+    if (HIDE) {
+        $res = preg_replace('/<a href="#" class="ui_text_normal">[^<]+<\/a>/', '<span class="ui_text_normal"><strong>Hidden</strong></span>', $res);
+    }
 
-	// 是否省略左侧面板链接url末尾的.php
-	$res=preg_replace_callback(
-		'/<a href="\/bawu2\/platform\/(.*?)\?word=.*?"/',
-		function ($matches){return "<a href=\"/bawu2/platform/$matches[1]" . (URL_REWRITE_ENABLED ? '"' : '.php"');},
-		$res
-	);
+    // 是否省略左侧面板链接url末尾的.php
+    $res = preg_replace_callback(
+        '/<a href="\/bawu2\/platform\/(.*?)\?word=.*?"/',
+        function ($matches) {
+            return "<a href=\"/bawu2/platform/$matches[1]" . (URL_REWRITE_ENABLED ? '"' : '.php"');
+        },
+        $res
+    );
 
-	$res=preg_replace_callback(
-		'/<a href="\/bawu2\/((post|)appeal)\/index\?kw=.*?(&type=grid|)(&(.*?)|)(&type=grid|)"/',
-		function ($matches){return '<a href="./' . $matches[1] . (empty($matches[5]) ? '' : "?$matches[5]") . '"';},
-		$res
-	);
-	$res=str_replace('/bawu2/platform/','./',$res);
+    $res = preg_replace_callback(
+        '/<a href="\/bawu2\/((post|)appeal)\/index\?kw=.*?(&type=grid|)(&(.*?)|)(&type=grid|)"/',
+        function ($matches) {
+            return '<a href="./' . $matches[1] . (empty($matches[5]) ? '' : "?$matches[5]") . '"';
+        },
+        $res
+    );
+    $res = str_replace('/bawu2/platform/', './', $res);
 
-	// 优先使用贴吧https资源url
-	$res=str_replace('http://tb1.bdstatic.com','//tb1.bdstatic.com',$res);
-	$res=str_replace('http://tb2.bdstatic.com','//tb1.bdstatic.com',$res);
-	$res=str_replace('//tb1.bdstatic.com','https://tb1.bdstatic.com',$res);
-	$res=str_replace('//tb2.bdstatic.com','https://tb1.bdstatic.com',$res);
-	$res=str_replace('http://passport.baidu.com','https://passport.baidu.com',$res);
-	$res=str_replace('src="/','src="https://tieba.baidu.com/',$res);
-	$res=str_replace('href="/','href="https://tieba.baidu.com/',$res);
-	$res=str_replace('<img src="/','<img src="https://tieba.baidu.com/',$res);
+    // 优先使用贴吧https资源url
+    $res = str_replace('http://tb1.bdstatic.com', '//tb1.bdstatic.com', $res);
+    $res = str_replace('http://tb2.bdstatic.com', '//tb1.bdstatic.com', $res);
+    $res = str_replace('//tb1.bdstatic.com', 'https://tb1.bdstatic.com', $res);
+    $res = str_replace('//tb2.bdstatic.com', 'https://tb1.bdstatic.com', $res);
+    $res = str_replace('http://passport.baidu.com', 'https://passport.baidu.com', $res);
+    $res = str_replace('src="/', 'src="https://tieba.baidu.com/', $res);
+    $res = str_replace('href="/', 'href="https://tieba.baidu.com/', $res);
+    $res = str_replace('<img src="/', '<img src="https://tieba.baidu.com/', $res);
 
-	// 将删帖日志页中位于 article.post_wrapper > div.post_content > div.post_media > ul.pic_list > li > a > img 下的帖子正文图片的lazyload加载图片url提取出来
-	$res=preg_replace_callback(
-		'/<li><a target="_blank" href="(.*?)"><img(.*?)src=".*?".*?original=".*?"/',
-		function ($matches){return "<li><a target=\"_blank\" href=\"$matches[1]\"><img$matches[2]src=\"$matches[1]\"";},
-		$res
-	);
+    // 将删帖日志页中位于 article.post_wrapper > div.post_content > div.post_media > ul.pic_list > li > a > img 下的帖子正文图片的lazyload加载图片url提取出来
+    $res = preg_replace_callback(
+        '/<li><a target="_blank" href="(.*?)"><img(.*?)src=".*?".*?original=".*?"/',
+        function ($matches) {
+            return "<li><a target=\"_blank\" href=\"$matches[1]\"><img$matches[2]src=\"$matches[1]\"";
+        },
+        $res
+    );
 
-	// tb.himg.baidu.com之外的贴吧图片域都可以无referer访问所以不需要反代
-	$res=str_replace('<img', '<img referrerpolicy="no-referrer"', $res);
-	// tb.himg.baidu.com域本身通过appealSW.js伪重定向到himg.bdimg.com并且no-referrer
-	/*
-	if (OPENPIC) { // 选择性反代用户头像portrait图片域tb.himg.baidu.com
-		$res=preg_replace_callback(
-			'/<img(.*?)src=(\'|")(http(s|):\/\/(tb\.himg\.baidu\.com)\/.*?)(\'|")/',
-			function ($matches){return "<img$matches[1]src=\"picgetter.php?url=$matches[3]\"";},
-			$res
-		);
-	}
-	*/
+    // tb.himg.baidu.com之外的贴吧图片域都可以无referer访问所以不需要反代
+    $res = str_replace('<img', '<img referrerpolicy="no-referrer"', $res);
+    // tb.himg.baidu.com域本身通过appealSW.js伪重定向到himg.bdimg.com并且no-referrer
+    /*
+    if (OPENPIC) { // 选择性反代用户头像portrait图片域tb.himg.baidu.com
+        $res=preg_replace_callback(
+            '/<img(.*?)src=(\'|")(http(s|):\/\/(tb\.himg\.baidu\.com)\/.*?)(\'|")/',
+            function ($matches){return "<img$matches[1]src=\"picgetter.php?url=$matches[3]\"";},
+            $res
+        );
+    }
+    */
 
-	header("Content-Type: text/html; charset=GBK");
-	return iconv('UTF-8', 'GBK', $res);
+    header("Content-Type: text/html; charset=GBK");
+    return iconv('UTF-8', 'GBK', $res);
 }

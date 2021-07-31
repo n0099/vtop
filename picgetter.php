@@ -10,6 +10,6 @@ require 'core.php';
 
 header("Content-Type: image/jpeg");
 
-$url=$_GET["url"];
+$url = $_GET["url"];
 
-echo cget($url,COOKIE);
+echo cget($url, COOKIE);

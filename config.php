@@ -1,4 +1,5 @@
 <?php
+
 // 是否省略左侧面板链接url末尾的.php，需要已配置正确的urlrewrite
 define('URL_REWRITE_ENABLED', false);
 // 是否隐藏已删除帖子的内容预览，具体修改位于core.php:71
@@ -31,35 +32,35 @@ define('BDUSS','***');
 //Eg.:
 # define('COOKIE','BDUSS=***;');
 
-define('BDUSS','');
+define('BDUSS', '');
 
 //这是贴吧名，必须要有权限！
 //Eg.:
 // define('KW_RAW','bug');
-define('KW_RAW','');
+define('KW_RAW', '');
 
 ///不要修改以下部分了
 //中文吧名需要以GBK/GB2312编码进行urlencode才能传给贴吧url
 define('KW_GBK', iconv('UTF-8', 'GBK', KW_RAW));
-define('KW',urlencode(KW_GBK));
+define('KW', urlencode(KW_GBK));
 ///STATIC PART
-define('MAIN','http://tieba.baidu.com/bawu2/platform/index?word=');
-define('POST','http://tieba.baidu.com/bawu2/platform/listPostLog?word=');
-define('USER','http://tieba.baidu.com/bawu2/platform/listUserLog?word=');
-define('DATA','http://tieba.baidu.com/bawu2/platform/data?word=');
-define('BAWU','http://tieba.baidu.com/bawu2/platform/listBawuLog?word=');
+define('MAIN', 'http://tieba.baidu.com/bawu2/platform/index?word=');
+define('POST', 'http://tieba.baidu.com/bawu2/platform/listPostLog?word=');
+define('USER', 'http://tieba.baidu.com/bawu2/platform/listUserLog?word=');
+define('DATA', 'http://tieba.baidu.com/bawu2/platform/data?word=');
+define('BAWU', 'http://tieba.baidu.com/bawu2/platform/listBawuLog?word=');
 
-define('BAWU_DUTY','http://tieba.baidu.com/bawu2/platform/listBawuDuty?word=');
-define('BLACKLIST','http://tieba.baidu.com/bawu2/platform/listBlackUser?word=');
-define('DATA_EXCEL','http://tieba.baidu.com/bawu2/platform/dataExcel?word=');
-define('USER_DATA_EXCEL','http://tieba.baidu.com/bawu2/platform/userDataExcel?word=');
-define('APPEAL','http://tieba.baidu.com/bawu2/appeal/index?type=grid&kw=');
-define('POST_APPEAL','http://tieba.baidu.com/bawu2/postappeal/index?type=grid&kw=');
+define('BAWU_DUTY', 'http://tieba.baidu.com/bawu2/platform/listBawuDuty?word=');
+define('BLACKLIST', 'http://tieba.baidu.com/bawu2/platform/listBlackUser?word=');
+define('DATA_EXCEL', 'http://tieba.baidu.com/bawu2/platform/dataExcel?word=');
+define('USER_DATA_EXCEL', 'http://tieba.baidu.com/bawu2/platform/userDataExcel?word=');
+define('APPEAL', 'http://tieba.baidu.com/bawu2/appeal/index?type=grid&kw=');
+define('POST_APPEAL', 'http://tieba.baidu.com/bawu2/postappeal/index?type=grid&kw=');
 
-define('VERSION','0.14');
+define('VERSION', '0.14');
 
-define('SK',md5(BDUSS.'VTOP!!!'));
+define('SK', md5(BDUSS . 'VTOP!!!'));
 
-$urls=array(MAIN,POST,USER,DATA,BAWU);
+$urls = array(MAIN,POST,USER,DATA,BAWU);
 
-define('COOKIE','BDUSS='.BDUSS.';');
+define('COOKIE', 'BDUSS=' . BDUSS . ';');

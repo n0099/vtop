@@ -10,6 +10,6 @@ require 'core.php';
 
 header('Content-Disposition: attachment; filename="bawuuserdata_' . date('Ymd') . '.xls"');
 
-$res=cget(USER_DATA_EXCEL.KW,COOKIE);
+$res = cget(USER_DATA_EXCEL . KW, COOKIE);
 
 echo $res;
