@@ -84,6 +84,7 @@ function swh($res)
 	// 隐藏删帖日志页的帖子内容
 	if (HIDE_DELETED_POST_CONTENT) {
 		$res=preg_replace('/<div class="post_text">(.*?)<\/div>/', '<div class="post_text">抱歉，根据相关吧规和政策，帖子内容暂不公开</div>', $res);
+		$res=preg_replace('/<div class="post_media">(.*?)<\/div>/', '<div class="post_media"></div>', $res);
 	}
 
 	if (HIDE) {
