@@ -60,33 +60,33 @@ function swh($res)
     $res = str_replace(
         '<head>',
         '<head>
-			<style>
-				.user_info * { color: white; }
-				.pic_list li { height: auto !important; }
-				.pic_list img { height: 100px; }
-			</style>
-			<script>
-				if ("serviceWorker" in navigator) {
-					navigator.serviceWorker.register("./appealSW.js", { scope: "./" });
-				}
-			</script>',
+            <style>
+                .user_info * { color: white; }
+                .pic_list li { height: auto !important; }
+                .pic_list img { height: 100px; }
+            </style>
+            <script>
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker.register("./appealSW.js", { scope: "./" });
+                }
+            </script>',
         $res
     );
     $res = preg_replace(
         '/<div class="user_info">(.*)<\/div><nav/',
         '<div class="user_info">
-			<a href="./">
-				<h2>VTOP 0.14</h2>
-				<p>贴吧公开后台<br />所在吧：' . KW_RAW . '吧</p>
-			</a>
-			<p>
-				<a href="http://vicz.cn">Powered By VICZONE-&gt;BFE</a><br />
-				2015：原作者<a href="https://tieba.baidu.com/home/main/?un=%E8%93%9D%E8%89%B2%E7%81%AB%E7%84%B0E">贴吧@蓝色火焰E</a><br />
-				2021：<a href="http://sst.st">SS\'S TRACE</a><br />
-				<a href="https://github.com/n0099/vtop">本修改版源码 @ GitHub</a><br />
-				<a href="https://n0099.net">n0099 四叶重工</a>
-			</p>
-		</div><nav',
+            <a href="./">
+                <h2>VTOP 0.14</h2>
+                <p>贴吧公开后台<br />所在吧：' . KW_RAW . '吧</p>
+            </a>
+            <p>
+                <a href="http://vicz.cn">Powered By VICZONE-&gt;BFE</a><br />
+                2015：原作者<a href="https://tieba.baidu.com/home/main/?un=%E8%93%9D%E8%89%B2%E7%81%AB%E7%84%B0E">贴吧@蓝色火焰E</a><br />
+                2021：<a href="http://sst.st">SS\'S TRACE</a><br />
+                <a href="https://github.com/n0099/vtop">本修改版源码 @ GitHub</a><br />
+                <a href="https://n0099.net">n0099 四叶重工</a>
+            </p>
+        </div><nav',
         $res
     );
 
@@ -124,6 +124,7 @@ function swh($res)
     $res = str_replace('//tb1.bdstatic.com', 'https://tb1.bdstatic.com', $res);
     $res = str_replace('//tb2.bdstatic.com', 'https://tb1.bdstatic.com', $res);
     $res = str_replace('http://passport.baidu.com', 'https://passport.baidu.com', $res);
+    $res = str_replace('http://tb.himg.baidu.com', 'https://tb.himg.baidu.com', $res);
     $res = str_replace('src="/', 'src="https://tieba.baidu.com/', $res);
     $res = str_replace('href="/', 'href="https://tieba.baidu.com/', $res);
     $res = str_replace('<img src="/', '<img src="https://tieba.baidu.com/', $res);
